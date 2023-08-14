@@ -40,12 +40,12 @@ otra vez cálculos que ya se hicieron anteriormente.
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) */
 
 function cacheFunction(cb) {
-  // let cache = {}
-    return function almacenandoDatos(arg){
-     if(cache.hasOwnProperty(arg)) {
-        return cache[arg];
-     } else{
-     cache[arg] =cb(arg) 
+  let cache = {} //creamos un objeto vacio
+    return function almacenandoDatos(arg){ //hacemos closure (llamar otra funcion) 
+     if(cache.hasOwnProperty(arg)) { // si dentro de nuestro objeto ya esta el argumento que se paso por parametro
+        return cache[arg]; //retornamos el dato desde el objeto cache
+     } else{ //si no esta en nuestro objeto
+     cache[arg] =cb(arg) // lo agregoamos a nuestra cache y retornamos
         return cache[arg]
 
         

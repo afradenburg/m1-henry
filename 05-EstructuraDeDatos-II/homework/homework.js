@@ -10,81 +10,81 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   search(isEven), donde isEven es una función que retorna true cuando recibe por parámetro un número par, busca un nodo cuyo valor sea un número par.
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
-function LinkedList() {
+function LinkedList() { //se inicializa la linkedlist 
   // Tren
-  this.head = null; // Locomotora
-  this._length = 0;
+  this.head = null; // Locomotora e le da valor a la cabeza
+  this._length = 0; // se le da un tama;o en 0 ya que no tiene nada aun
 }
 
-function Node(value) {
+function Node(value) { // se inicializan los nodos que sera los vagones 
   // Vagones
-  this.value = value;
-  this.next = null;
+  this.value = value; // tendra un valor que se le pasara por parametro
+  this.next = null; // se asiga un puntero que va hacia next de momento
 }
 
-LinkedList.prototype.add = function (valor) {
-  let newNode = new Node(valor);
-  let current = this.head;
+LinkedList.prototype.add = function (valor) { //funcion para añadir nodos a la linkedlist
+  let newNode = new Node(valor);  // el valor  que se recibe por parametro se convierte en vagon (con su valor y su puntero)
+  let current = this.head; // current o actual se define como el inicio de la linkedlist y nos servira para recoirrer la lista
 
   // insetar un valor en lista vacia
   //this.head === null
   // this._length === 0
-  if (!this.head) {
-    this.head = newNode;
-    this._length++;
+  if (!this.head) { // esto es lo mismo que decir que si this.head es null (si se cumple la conmficion)
+    this.head = newNode; //entonces this.head va a ser newnode (osea el valor que le agregamos)
+    this._length++; //se aumenta su lingitud
   } else {
     // insertar un valor en el ultimo nodo de una lista con mas de 1 elemento
-    while (current.next) {
-      // current.next === null
-      current = current.next;
+    while (current.next !== null) { //com while la condicion para que siga es (mientras exista un nodo al que apuntad se ejecura)
+      // current.next
+      current = current.next; // recorre hasta terminar la condicion
     }
-    current.next = newNode;
-    this._length++;
+    current.next = newNode; // al terminar y saber que el siguiente current.next es null agregamos el nreNodo que nos dieron por parametro
+    this._length++;// se aumenta la lontitud
   }
 };
 
-LinkedList.prototype.remove = function () {
-  let current = this.head;
+LinkedList.prototype.remove = function () { //funcion para remover nodo
+  let current = this.head; // se declara puntero como el inicio para recorrer
 
-  // Retorna null si la lista esta vacia
-  if (this._length === 0) return null;
-  if (this._length === 1) {
-    let aux = current.value;
-    this.head = null;
-    this._length--;
-    return aux;
+  
+  if (this._length === 0) return null; // Retorna null si la lista esta vacia
+  if (this._length === 1) { // si solo queda 1 nodo(this.head)
+    let aux = current.value; //guardamos el valor que existe 
+    this.head = null; // ahora no quedaran elementos
+    this._length--; // disminuimos la longitud
+    return aux; //retornamos el valor que quitamos
   }
 
-  while (current.next.next) {
-    current = current.next;
+  while (current.next.next) { // mientras exista un nodo en las 2 pocisiones siguientes
+    current = current.next; //recoremos y avanzamos 
   }
   /// Sacar ultimo nodo y devolverlo
-  let aux = current.next.value;
+  let aux = current.next.value; //al terminar el while porque no se cumple la condicion sacamos el valor del ultimo nodo
 
-  current.next = null;
-  this._length--;
+  current.next = null; //eliminamos el valor del ultimo nodo al que apuntamos
+  this._length--; //diosminuimos la longitud
 
-  return aux;
+  return aux; //retornamos el valor que eliminamos
 };
 
 LinkedList.prototype.search = function (value) {
-  let current = this.head;
+  let current = this.head; // declaramos el nodo actual(el inicio del linkedlist)
 
-  if (!current) return null;
+  if (!current) return null; //si no hay nada en la linkedlist retornamos null
 
-  while (current) {
-    if (current.value === value) return current.value;
-    if (typeof value === "function") {
-      if (value(current.value)) {
-        return current.value;
+  while (current) { //while condicion (mientras haya un valor en curent)
+    if (current.value === value) return current.value; //si el valor del current es igual al valor que nos dieron por parametro, retornamos su valor
+    if (typeof value === "function") { // si el tipo de valor que nos enviaron es una funcion
+      if (value(current.value)) { // lalamamos la funcion y le damos como parametro el valor que tiene el current en este momento
+        return current.value; // retornamos el valor
       }
     }
-    current = current.next;
+    current = current.next; // le damos a current el valor del siguiente nodo
   }
-  return null;
+  return null; 
 };
 
-let listita = new LinkedList();
+
 
 /* EJERCICIO 2
 Implementar la clase HashTable.
@@ -99,12 +99,12 @@ La clase debe tener los siguientes métodos:
 
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
-function HashTable() {
+function HashTable() { //cremoas la hashtable que es donde vamos a almanecar los datos codificados
   this.buckets = []; //{gama: gama@gmail.com})
-  this.numBuckets = 35;
+  this.numBuckets = 35; //se le asiga 35 posiciones ya que el ejercicio no lo pide
 }
 
-HashTable.prototype.hash = function (key) {
+HashTable.prototype.hash = function (key) { //la funcion hash es la que nos dira enq ue pocision 
   // "gama"
 
   let suma = 0;

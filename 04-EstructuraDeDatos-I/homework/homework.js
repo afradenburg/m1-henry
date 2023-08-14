@@ -51,19 +51,19 @@ Pueden utilizar class o función constructora.
 */
 
 function Queue(e) {
-  this.fila = []
+  this.fila = [] // arreglo vacio 
  
-   Queue.prototype.enqueue = function (elem){
-    return this.fila.push(elem)
+   Queue.prototype.enqueue = function (elem){ // se declara funcion propotype que enqueue es una funcion que recibbira un elemento
+    return this.fila.push(elem) // luego tomara ese elemento y lo pusheara en el arreglo
   
   }
-    Queue.prototype.dequeue = function (elem){
-      if(this.fila === []){
+    Queue.prototype.dequeue = function (elem){ //se declara funcion que recibe elemento como parametro
+      if(this.fila === []){ //si el array esta vacio retorna undefined
         return undefined
-      } return this.fila.shift(elem)
+      } return this.fila.shift(elem) // sino elimina del arreglo el elemento que se paso por parametro 
     
     }
-    Queue.prototype.size = function (){
+    Queue.prototype.size = function (){ //retorna el tama;o que tiene el arreglo en este momento
      return this.fila.length
     }
   }

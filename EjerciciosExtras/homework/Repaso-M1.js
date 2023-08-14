@@ -1,3 +1,4 @@
+const { arrayReplaceAt } = require('markdown-it/lib/common/utils.js');
 const {
     Queue,
     Node,
@@ -15,6 +16,13 @@ const {
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
 var countArray = function(array) {
+    count = 0
+    for(let elemen of array){
+        if (Array.array(elemen)){
+          count =+ countArray(elemen) 
+        } count += count
+    }
+    return count
     // Tu código aca:
     
 }
@@ -39,7 +47,16 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
+    let total = Object.keys(obj).length;
+    for(elemen in obj){
+        if(typeof obj[elemen] === 'Object' && !Array.isArray(obj[elemen])){
+            total += countProps(obj[elemen])
+        } else {
+            total++
+        }
 
+    }
+ return total
 }
 
 
@@ -53,7 +70,16 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
+    let current = this.head
+    let count = 0
 
+    while(current){
+        if(isNaN(Number(current.value))){
+            current.value = "kiricocho"
+            count++
+        } 
+        }
+return count
 }
 
 

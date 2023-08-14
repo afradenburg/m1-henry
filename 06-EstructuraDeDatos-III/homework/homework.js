@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
  Implementar la clase BinarySearchTree, definiendo los siguientes métodos recursivos:
@@ -13,68 +13,105 @@
    dentro del directorio homework.
 */
 
-
 function BinarySearchTree(value) {
-   this.value = value;
-   this.right = null;
-   this.left = null;
+  this.value = value;
+  this.right = null;
+  this.left = null;
 }
 
-BinarySearchTree.prototype.size = function(){
-   let count = 1
-   if(this.left){
-      count ++ 
-      this.left.size()
-   }
-   if(this.right){
-      count ++ 
-      this.right.size()
-   }
-   return count
-}
-BinarySearchTree.prototype.insert = function(value){
-    let subTree = new BinarySearchTree(value)
-    // si es menor a la izq.
-   if(value< this.value){
-    if(this.left === null){
-        this.left= subTree;
-    }else {
-        this.left.insert(value)
+BinarySearchTree.prototype.size = function () {
+  let count = 1;
+  if (this.left) {
+    count++;
+    this.left.size();
+  }
+  if (this.right) {
+    count++;
+    this.right.size();
+  }
+  return count;
+};
+BinarySearchTree.prototype.insert = function (value) {
+  let subTree = new BinarySearchTree(value);
+  // si es menor a la izq.
+  if (value < this.value) {
+    if (this.left === null) {
+      this.left = subTree;
+    } else {
+      this.left.insert(value);
     }
-}
-   //si es mayor a la derecha
+  }
+  //si es mayor a la derecha
 
-   if(value> this.value){
-    if(this.right === null){
-        this.right= subTree
-    }else {
-        this.right.insert(value)
+  if (value > this.value) {
+    if (this.right === null) {
+      this.right = subTree;
+    } else {
+      this.right.insert(value);
     }
-}
-}
+  }
+};
 BinarySearchTree.prototype.contains = function (value) {
-   if (value === this.value) {
-     return true;
-   } else if (value < this.value) {
-     if (this.left) {
-       return this.left.contains(value);
-     } else {
-       return false;
-     }
-   } else if (value > this.value) {
-     if (this.right) {
-       return this.right.contains(value);
-     } else {
-       return false;
-     }
-   }
-   return false;
- };
- 
+  if (value === this.value) {
+    return true;
+  } else if (value < this.value) {
+    if (this.left) {
+      return this.left.contains(value);
+    } else {
+      return false;
+    }
+  } else if (value > this.value) {
+    if (this.right) {
+      return this.right.contains(value);
+    } else {
+      return false;
+    }
+  }
+  return false;
+};
+
+
+BinarySearchTree.prototype.depthFirstForEach = function (cb, parametro) {
+  switch (parametro) {
+    default:
+      this.left && this.left.depthFirstForEach(cb, parametro)
+      cb(this.value);
+       this.right && this.right.depthFirstForEach(cb, parametro)
+        break;
+
+    case "pre-order":
+
+      cb(this.value);
+      this.left && this.left.depthFirstForEach(cb, parametro)
+      this.right && this.right.depthFirstForEach(cb, parametro) 
+      break;
+
+    case "post-order":
+      this.left && this.left.depthFirstForEach(cb, parametro)
+      this.right && this.right.depthFirstForEach(cb, parametro)
+      cb(this.value);
+      break;
+  }
+  BinarySearchTree.prototype.breadthFirstForEach = function (cb, almacen = []) {
+    cb(this.value);
+  
+    if (this.left) {
+      almacen.push(this.left);
+    }
+  
+    if (this.right) {
+      almacen.push(this.right);
+    }
+  
+    if (almacen.length > 0) {
+      almacen.shift().breadthFirstForEach(cb, almacen);
+    }
+  };
+};
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
 module.exports = {
-   BinarySearchTree,
+  BinarySearchTree,
 };
